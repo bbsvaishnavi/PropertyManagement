@@ -1,0 +1,212 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --white: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    font-family: var(--font-family);
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    z-index: 1000;
+}
+
+.navbar-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar h2 {
+    font-size: 1.4rem;
+    margin-right: auto;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-left: auto;
+}
+
+.nav-actions a,
+.nav-actions button {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.add-property-btn {
+    background: var(--white);
+    color: var(--primary-color);
+    border: none;
+}
+
+.logout-btn {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.add-property-btn:hover {
+    background: #0056b3;
+    color: var(--white);
+}
+
+.logout-btn:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Dashboard Container */
+.container {
+    margin: 5rem auto 2rem;
+    width: 90%;
+    max-width: 1200px;
+    padding: 1rem;
+}
+
+/* Headings */
+.container h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Property Table */
+.property-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--white);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.property-table thead {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.property-table th,
+.property-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.property-table th {
+    font-weight: bold;
+}
+
+.property-table tr:hover {
+    background: #f4f4f4;
+}
+
+.property-table td img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.property-table td .edit-btn {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.3s ease-in-out;
+}
+
+.property-table td .edit-btn:hover {
+    background: #0056b3;
+}
+
+/* No Properties Placeholder */
+.no-properties {
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .property-table td img {
+        width: 80px;
+    }
+
+    .navbar h2 {
+        font-size: 1.2rem;
+    }
+
+    .nav-actions a,
+    .nav-actions button {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+
+/* Action Icons Styling */
+.action-icons img {
+    width: 20px !important; /* Forcefully set width */
+    height: 20px !important; /* Forcefully set height */
+    margin: 0 8px; /* Space between icons */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.action-icons img:hover {
+    transform: scale(1.2); /* Interactive hover effect */
+}
+
+/* Aligning the Action Icons */
+.property-table td.actions {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
