@@ -3,9 +3,9 @@ session_start();
 
 // Database Connection
 $servername = "localhost"; 
-$username = "skaushik5";  
-$password = "skaushik5";      
-$dbname = "skaushik5";
+$username = "root";  
+$password = "123456";      
+$dbname = "bbharatula1";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -52,7 +52,11 @@ if ($result->num_rows > 0) {
         $insert_stmt->execute();
 
         // Redirect to dashboard
-        header("Location: dashboard.php");
+        if ($_SESSION['user_type'] === 'buyer') {
+            header('Location: buyer_dashboard.php');
+        } elseif ($_SESSION['user_type'] === 'seller') {
+            header('Location: dashboard.php');
+        }
         exit;
     } else {
         $_SESSION['error'] = "Incorrect password!";

@@ -6,9 +6,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'seller') {
 }
 
 $servername = "localhost"; 
-$username = "skaushik5";  
-$password = "skaushik5";      
-$dbname = "skaushik5";
+$username = "root";  
+$password = "123456";      
+$dbname = "bbharatula1";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -19,12 +19,14 @@ if ($conn->connect_error) {
 // Fetch properties created by the seller
 $seller_id = $_SESSION['user_id'];
 $sql = "SELECT p.*, 
+        AVG(r.rating) AS average_rating,
         GROUP_CONCAT(a.name SEPARATOR ', ') AS amenities,
         ROUND(p.base_value * 1.07, 2) AS value_after_tax
         FROM property p 
-        LEFT JOIN amenity a ON p.id = a.property_id 
-        JOIN user_property up ON p.id = up.property_id 
-        WHERE up.user_id = ? 
+        LEFT JOIN amenity a ON p.id = a.property_id
+        LEFT JOIN property_ratings r ON p.id = r.property_id
+        JOIN user_property up ON p.id = up.property_id
+        WHERE up.user_id = ?
         GROUP BY p.id";
 
 $stmt = $conn->prepare($sql);
@@ -41,143 +43,7 @@ $result = $stmt->get_result();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/dashboard.css">
 
-    <style>
-        /* Modal Styles */
-        .modal {
-            display: none; /* Ensure it's hidden by default */
-            position: fixed; /* Stay fixed on the screen */
-            top: 50%; /* Vertically center */
-            left: 50%; /* Horizontally center */
-            transform: translate(-50%, -50%); /* Center using transform */
-            z-index: 2000; /* Make sure it appears on top */
-            background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            z-index: 3000;
-        }
-
-        .modal-content .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-        }
-
-        .modal-content .close:hover {
-            color: #000;
-        }
-
-        .modal-content h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .modal-content label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 0.7rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: var(--font-family);
-        }
-
-        .modal-content button {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .modal-content button:hover {
-            background: #0056b3;
-        }
-
-        /* Show Amenities Button */
-        .show-amenities-btn {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .show-amenities-btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        /* Amenities Modal Grid Styling */
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            padding: 10px;
-        }
-
-        .amenity-item {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-align: center;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.3s ease;
-        }
-
-        .amenity-item:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-
-        /* Animation for Modal */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-    </style>
+    
 
 </head>
 <body>
@@ -204,6 +70,7 @@ $result = $stmt->get_result();
                         <th>Bedrooms</th>
                         <th>Base Value</th>
                         <th>Value after Tax (7%)</th>
+                        <th>Average Rating</th>
                         <th>Amenities</th>
                         <th>Actions</th>
                     </tr>
@@ -219,6 +86,9 @@ $result = $stmt->get_result();
                             <td><?= htmlspecialchars($row['num_bedrooms']) ?></td>
                             <td>$<?= htmlspecialchars($row['base_value']) ?></td>
                             <td>$<?= htmlspecialchars($row['value_after_tax']) ?></td>
+                            <td>                                
+                                <?= $row['average_rating'] ? number_format($row['average_rating'], 1) : 'No ratings yet' ?>
+                            </td>
                             <td>
                             <!-- Show Amenities Button -->
                                 <button class="show-amenities-btn" onclick="openShowAmenitiesModal(<?= $row['id'] ?>)">Show Amenities</button>

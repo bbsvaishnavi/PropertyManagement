@@ -210,139 +210,132 @@ body {
     white-space: nowrap;
 }
 
-        /* Modal Styles */
-        .modal {
-            display: none; /* Ensure it's hidden by default */
-            position: fixed; /* Stay fixed on the screen */
-            top: 50%; /* Vertically center */
-            left: 50%; /* Horizontally center */
-            transform: translate(-50%, -50%); /* Center using transform */
-            z-index: 2000; /* Make sure it appears on top */
-            background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-        }
+.star {
+    font-size: 30px; /* Adjust the size of the stars */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
 
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            z-index: 3000;
-        }
+.star:hover {
+    transform: scale(1.2); /* Slightly enlarge the star on hover */
+    color: gold; /* Highlight gold on hover */
+}
 
-        .modal-content .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-        }
+#starRating {
+    display: flex;
+    gap: 15px; /* Add spacing between stars */
+    justify-content: center; /* Center the stars in the modal */
+    margin-top: 20px; /* Add margin for better spacing */
+}
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-        .modal-content .close:hover {
-            color: #000;
-        }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 250px;
+        z-index: 1000;
+        border-radius: 5px;
+    }
 
-        .modal-content h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-        .modal-content label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
+    .dropdown-content a {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        transition: background 0.3s ease;
+    }
 
-        .modal-content input {
-            width: 100%;
-            padding: 0.7rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: var(--font-family);
-        }
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
 
-        .modal-content button {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease-in-out;
-        }
+    .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2000;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-        .modal-content button:hover {
-            background: #0056b3;
-        }
+    .modal .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    #search{
+        width: 200px;
+        height: 30px;
+    }
+    #img {
+        width: 20px !important; /* Forcefully set width */
+        height: 20px !important; /* Forcefully set height */
+        margin: 0 8px; /* Space between icons */
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        display: inline-block;
+    }
+/* Shared button styles */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        /* Show Amenities Button */
-        .show-amenities-btn {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+.action-buttons button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        .show-amenities-btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
+.action-buttons button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05);
+}
 
-        /* Amenities Modal Grid Styling */
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            padding: 10px;
-        }
+.action-buttons button:active {
+    transform: scale(1);
+}
 
-        .amenity-item {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-align: center;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.3s ease;
-        }
+/* Add to Wishlist button styles */
+.action-buttons button.add {
+    background-color: #28a745; 
+}
 
-        .amenity-item:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
+.action-buttons button.add:hover {
+    background-color: #218838; 
+}
 
 
-        /* Animation for Modal */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-    
+/* Rate button styles */
+.action-buttons button.rate {
+    background-color: #ffc107; 
+    color: #212529; 
+}
+
+.action-buttons button.rate:hover {
+    background-color: #e0a800; 
+}

@@ -1,15 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'seller') {
+if (!isset($_SESSION['user_id'])) {
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized access']);
     exit;
 }
 
 $property_id = $_GET['property_id'];
-$servername = "localhost";
-$username = "skaushik5";
-$password = "skaushik5";
-$dbname = "skaushik5";
+$servername = "localhost"; 
+$username = "root";  
+$password = "123456";      
+$dbname = "bbharatula1";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
