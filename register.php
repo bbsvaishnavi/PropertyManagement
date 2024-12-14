@@ -21,7 +21,8 @@ $sql = "INSERT INTO users (name, email, password, user_type)
         VALUES ('$name', '$email', '$hashed_password', '$user_type')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Registration successful! <a href='signin.php'>Sign in here</a>";
+    header("Location: signin.php");
+    exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
